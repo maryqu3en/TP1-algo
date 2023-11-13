@@ -6,6 +6,7 @@ void fillRandom(int *arr, int size, int max);
 void swap(int *x, int *y);
 void selectionSort(int *arr, int size);
 void insertionSort(int *arr, int size);
+void bubbleSort(int *arr, int size);
 void printOriginalArray(int *arr, int size);
 void printSortedArray(int *arr, int size);
 
@@ -22,7 +23,7 @@ int main()
     printf("Your array has been filled successfully with random integer values.\n");
     printOriginalArray(A, SIZE);
     printf("\nThe array has been sorted using two different methods: insertion sort and selection sort.\nWe will compare the execution time of each of the methods to see which is more convinient.\n");
-    double executionTime[2];
+    double executionTime[3];
 
     clock_t startClock1 = clock();
     selectionSort(A, SIZE);
@@ -34,18 +35,28 @@ int main()
     clock_t endInsertionClock = clock();
     executionTime[1] = (double)(endInsertionClock - startClock1) / CLOCKS_PER_SEC;
 
+    clock_t startClock3 = clock();
+    bubbleSort(A, SIZE);
+    clock_t endBubbleClock = clock();
+    executionTime[2] = (double)(endBubbleClock - startClock3) / CLOCKS_PER_SEC;
+    
     printSortedArray(A, SIZE);
 
-    printf("\nThe execution time of selection sort is: %lf s.\nThe execution time of insertion sort is: %lf s.", executionTime[0], executionTime[1]);
-    if (executionTime[0] < executionTime[1])
+    printf("\nThe execution time of selection sort is: %lf s.\nThe execution time of insertion sort is: %lf s.\nThe execution time of bubble sort is: %lf s.", executionTime[0], executionTime[1], executionTime[2]);
+    if (executionTime[0] < executionTime[1] && executionTime[0] < executionTime[2])
     {
-        printf("\nThe selection sort took less time to execute than insertion sort");
+        printf("\nThe selection sort took less time to execute than insertion sort and bubble sort");
+    }
+    else if (executionTime[1] < executionTime[0] && executionTime[1] < executionTime[2])
+    {
+        printf("\nThe insertion sort took less time to execute than selection sort and bubble sort");
+
     }
     else
     {
-        printf("\nThe insertion sort took less time to execute than selection sort");
-
+        printf("\nThe bubble sort took less time to execute than selection sort and insertion sort");
     }
+    
 
     printf("\n\n\n");
     return 0;
@@ -95,6 +106,20 @@ void insertionSort(int *arr, int size)
             pos = pos - 1;
         }
         arr[pos] = temp;
+    }
+}
+
+void bubbleSort(int *arr, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = 0; j < size - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
     }
 }
 

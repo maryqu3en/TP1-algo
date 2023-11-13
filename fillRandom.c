@@ -5,6 +5,7 @@ void fillRandom(int *arr, int size, int max);
 void swap(int *x, int *y);
 void selectionSort(int *arr, int size);
 void insertionSort(int *arr, int size);
+void bubbleSort(int *arr, int size);
 void printOriginalArray(int *arr, int size);
 void printSortedArray(int *arr, int size);
 
@@ -14,25 +15,28 @@ int main()
     printf("Enter array size: ");
     scanf("%d", &SIZE);
     int MAX = 1000000;
-    // int MAX;
-    // printf("Enter maximum value of array: ");
-    // scanf("%d", &MAX);
     int A[SIZE];
     fillRandom(A, SIZE, MAX);
-    printf("\nYour array has been filled successfully with random integer values. \nChoose which method to use for sorting your array: \n \tChoose \"1\" for selection sort\n \tChoose \"2\" for insertion sort\n");
+    printf("\nYour array has been filled successfully with random integer values. \nChoose which method to use for sorting your array: \n \tChoose \"0\" for selection sort\n \tChoose \"1\" for insertion sort\n \tChoose \"2\" for bubble sort\n");
     int choice;
     scanf("%d", &choice);
-    
-    if (choice == 1)
+
+    if (choice == 0)
     {
         printOriginalArray(A, SIZE);
         selectionSort(A, SIZE);
         printSortedArray(A, SIZE);
     }
-    else if (choice == 2)
+    else if (choice == 1)
     {
         printOriginalArray(A, SIZE);
         insertionSort(A, SIZE);
+        printSortedArray(A, SIZE);
+    }
+    else if (choice == 2)
+    {
+        printOriginalArray(A, SIZE);
+        bubbleSort(A, SIZE);
         printSortedArray(A, SIZE);
     }
     else
@@ -87,6 +91,20 @@ void insertionSort(int *arr, int size)
             pos = pos - 1;
         }
         arr[pos] = temp;
+    }
+}
+
+void bubbleSort(int *arr, int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = 0; j < size - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
     }
 }
 
